@@ -1,10 +1,10 @@
 rootProject.name = "kafka-practice"
 
-include("practice_1")
-include("practice_1:producer-service")
-include("practice_1:consumer-service")
-findProject(":practice_1:producer-service")?.name = "producer-service"
-findProject(":practice_1:consumer-service")?.name = "consumer-service"
+include("practice")
+include("practice:producer-service")
+include("practice:consumer-service")
+findProject(":practice:producer-service")?.name = "producer-service"
+findProject(":practice:consumer-service")?.name = "consumer-service"
 
 //include("webinar-02")
 //include("webinar-02:producer-service")

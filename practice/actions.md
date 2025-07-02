@@ -5,17 +5,17 @@ docker compose up -d
 
 `2.` Получаем список Топиков которые есть в Kafka брокере, доступном по адресу kafka:9092 и находящемся внутри контейнера Docker с именем kafka:
 ```shell
-docker exec -ti kafka /usr/bin/kafka-topics --list --bootstrap-server kafka:9093
+docker exec -ti kafka1 /usr/bin/kafka-topics --list --bootstrap-server localhost:9091
 ```
 
 `3.` Создаем новый топик "vowels"
 ```shell
-docker exec -ti kafka /usr/bin/kafka-topics --create --topic vowels --bootstrap-server localhost:9093
+docker exec -ti kafka1 /usr/bin/kafka-topics --create --topic vowels --replication-factor 3 --bootstrap-server localhost:9091
 ```
 
 `4.` Создаем новый топик "consonants"
 ```shell
-docker exec -ti kafka /usr/bin/kafka-topics --create --topic consonants --bootstrap-server localhost:9093
+docker exec -ti kafka1 /usr/bin/kafka-topics --create --topic consonants --replication-factor 3 --bootstrap-server localhost:9091
 ```
 
 `5.` Отправляем сообщение в "vowels"
