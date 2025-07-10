@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
 
 /**
- * PersonDeserializer используется для преобразования из байтового массива в объекты Person при получении из Kafka.
+ * SymbolDeserializer используется для преобразования из байтового массива в объекты Person при получении из Kafka.
  */
 public class SymbolDeserializer implements Deserializer<Symbol> {
 

@@ -14,9 +14,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-/**
- * Webinar-04: Kafka admin-service. Простое создание топиков.
- */
 public class KafkaAdminApp {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaAdminApp.class);

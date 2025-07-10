@@ -11,10 +11,6 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.Collections;
 
-/**
- * Webinar-03: Kafka consumer-service (прием экземпляров класса Person из topic2)
- * Использования метода consumer.poll().
- */
 public class KafkaConsumerApp {
     private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerApp.class);
     private static final Duration TEN_MILLISECONDS_INTERVAL = Duration.ofMillis(10);

@@ -22,14 +22,17 @@ public class KafkaProducerApp {
     private static final String COLOR_DEFAULT = "#000000";
 
     public static void main(String[] args) {
-        try (KafkaProducer<Long, Symbol> producer = new KafkaProducer<>(KafkaConfig.getProducerConfig())) {
+        KafkaProducer<Long, Symbol> producer = new KafkaProducer<>(KafkaConfig.getProducerConfig());
+        try {
+            producer.initTransactions();
 
-
+            producer.beginTransaction();
             for (int i = 0; i < alphabet.length; i++) {
                 Symbol symbol = new Symbol(i, String.valueOf(alphabet[i]), COLOR_DEFAULT, "Char");
 
                 long timestamp = System.currentTimeMillis();
                 Matcher match = Pattern.compile("[aioeuy]").matcher(symbol.getValue());
+
                 ProducerRecord<Long, Symbol> producerRecord;
                 if (match.find()) {
                     producerRecord = new ProducerRecord<>(KafkaConfig.TOPIC_VOWELS, symbol);
@@ -37,10 +40,6 @@ public class KafkaProducerApp {
                     producerRecord = new ProducerRecord<>(KafkaConfig.TOPIC_CONSONANTS, symbol);
                 }
 
-                /**
-                 * Анонимный внутренний класс (Callback), содержащий только один метод onCompletion(), можно записать
-                 * через лямбду
-                 */
                 producer.send(producerRecord, new Callback() {
                     @Override
                     public void onCompletion(RecordMetadata recordMetadata, Exception e) {
@@ -54,8 +53,10 @@ public class KafkaProducerApp {
                 logger.info("Отправлено сообщение: key-{}, value-{}", i, symbol);
             }
             logger.info("Отправка завершена.");
+
+            producer.commitTransaction();
         } catch (Exception e) {
             logger.error("Ошибка при отправке сообщений в Kafka", e);
         }
-    } // todo показать без try -with-resources c вызовом .flush() .close() .close(Duration.ofSeconds(60))
+    }
 }

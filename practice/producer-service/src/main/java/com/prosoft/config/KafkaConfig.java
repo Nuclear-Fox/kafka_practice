@@ -34,6 +34,22 @@ public class KafkaConfig {
          */
         properties.put(ProducerConfig.ACKS_CONFIG, "all");
 
+        /** Включение идемпотентности для продюсера */
+        properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+
+        /** Параметр используется для идентификации транзакций. Он назначает уникальный идентификатор транзакционному
+         * продюсеру, позволяя ему выполнять и отслеживать транзакции.
+         * При использовании транзакций producer должен иметь уникальный TRANSACTIONAL_ID, это Kafka отслеживать состояние
+         * транзакций и гарантировать их атомарное выполнение.
+         * Для работы с транзакциями Продюсер должен быть Идемпотентным, т.е. enable.idempotence=true
+         */
+        properties.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "my-transactional-id");
+
+        /** Параметр конфигурации, определяющий максимальное время (в мс), в течение которого транзакция может оставаться
+         * открытой. По умолчанию 60000 мс (1 минута)
+         */
+        properties.put(ProducerConfig.TRANSACTION_TIMEOUT_CONFIG, 600000);
+
         /** Метод сжатия данных и используемые алгоритмы:
          *  - "none" - без сжатия,
          *  - "gzip" - алгоритм Gzip,
