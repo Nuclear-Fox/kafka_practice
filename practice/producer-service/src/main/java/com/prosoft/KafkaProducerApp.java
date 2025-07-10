@@ -56,6 +56,7 @@ public class KafkaProducerApp {
 
             producer.commitTransaction();
         } catch (Exception e) {
+            producer.abortTransaction();
             logger.error("Ошибка при отправке сообщений в Kafka", e);
         }
     }
